@@ -3538,14 +3538,14 @@ document
 
 function validatePhone(){
 
-  let valid = false;
+  /* Validación internacional: no obligamos a que el número
+     coincida con el formato concreto de un país. */
+  const digits =
+    phoneInput.value.replace(/\D/g, "");
 
-  try{
-    valid = phoneIti.isValidNumber();
-  }catch(error){
-    const digits = phoneInput.value.replace(/\D/g, "");
-    valid = digits.length >= 6 && digits.length <= 15;
-  }
+  const valid =
+    digits.length >= 6 &&
+    digits.length <= 15;
 
   if(valid){
 
