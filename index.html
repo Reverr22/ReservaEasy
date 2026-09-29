@@ -3709,8 +3709,26 @@ async () => {
   const clientName =
     nameInput.value.trim();
 
+  /*
+     Construimos el número internacional directamente a partir del
+     prefijo seleccionado + el número escrito. Así no dependemos de
+     que la librería haya cargado todavía el archivo utils.js.
+  */
+  const countryData =
+    phoneIti.getSelectedCountryData();
+
+  const dialCode =
+    countryData && countryData.dialCode
+      ? String(countryData.dialCode)
+      : "";
+
+  const phoneDigits =
+    phoneInput.value.replace(/\D/g, "");
+
   const clientPhone =
-    phoneIti.getNumber();
+    dialCode && phoneDigits
+      ? "+" + dialCode + phoneDigits
+      : "";
 
   const clientEmail =
     emailInput.value.trim();
