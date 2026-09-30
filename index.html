@@ -2017,8 +2017,9 @@ function rescheduleSavedBooking(
   nameInput.value =
     booking.nombre || "";
 
-  phoneInput.value =
-    booking.telefono || "";
+  phoneIti.setNumber(
+  booking.telefono || ""
+);
 
   emailInput.value =
     booking.email || "";
