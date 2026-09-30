@@ -2060,12 +2060,22 @@ function saveBooking(booking){
   const bookings =
     getSavedBookings();
 
+  /* Mantener siempre el ID de Google Calendar bajo eventId. */
+  const normalizedBooking = {
+    ...booking,
+    eventId:
+      booking.eventId ||
+      booking.id ||
+      booking.googleEventId ||
+      ""
+  };
+
   const existing =
     bookings.findIndex(
       x =>
         x.eventId &&
-        booking.eventId &&
-        x.eventId === booking.eventId
+        normalizedBooking.eventId &&
+        x.eventId === normalizedBooking.eventId
     );
 
   if(existing >= 0){
@@ -2073,13 +2083,13 @@ function saveBooking(booking){
     bookings[existing] =
       {
         ...bookings[existing],
-        ...booking
+        ...normalizedBooking
       };
 
   }else{
 
     bookings.unshift(
-      booking
+      normalizedBooking
     );
 
   }
@@ -2402,6 +2412,36 @@ function rescheduleSavedBooking(
     return;
   }
 
+  /*
+    El ID de Google Calendar es imprescindible para
+    poder borrar la reserva antigua al reagendar.
+    Normalizamos posibles nombres antiguos para no
+    romper reservas guardadas antes de esta versión.
+  */
+  const bookingEventId =
+    booking.eventId ||
+    booking.id ||
+    booking.googleEventId ||
+    "";
+
+  if(!bookingEventId){
+    console.error(
+      "No se puede reagendar: la reserva no tiene eventId",
+      booking
+    );
+
+    alert(
+      "No se puede reagendar esta reserva porque no se ha encontrado su identificador de Google Calendar."
+    );
+
+    return;
+  }
+
+  const bookingForReschedule = {
+    ...booking,
+    eventId: bookingEventId
+  };
+
 
   /*
     Guardamos temporalmente la reserva
@@ -2411,7 +2451,7 @@ function rescheduleSavedBooking(
   localStorage.setItem(
     "reschedulingBooking",
     JSON.stringify(
-      booking
+      bookingForReschedule
     )
   );
 
@@ -4240,6 +4280,18 @@ const clientPhone =
         REAGENDAR
       */
 
+      const oldEventId =
+        oldEventId ||
+        oldBooking.id ||
+        oldBooking.googleEventId ||
+        "";
+
+      if(!oldEventId){
+        throw new Error(
+          "La reserva antigua no contiene eventId"
+        );
+      }
+
       response =
         await fetch(
           RESCHEDULE_WEBHOOK,
@@ -4255,10 +4307,10 @@ const clientPhone =
             body:JSON.stringify({
 
               id:
-                oldBooking.eventId,
+                oldEventId,
 
               eventId:
-                oldBooking.eventId,
+                oldEventId,
 
               nuevaFecha:
                 selectedDate,
