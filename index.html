@@ -1883,6 +1883,12 @@ const services = [
 ];
 
 
+function getServiceName(service){
+  if(!service) return t("booking");
+  return service.nameKey ? t(service.nameKey) : (service.name || t("booking"));
+}
+
+
 let svc = null;
 let selectedDate = null;
 let selectedTime = null;
@@ -3845,7 +3851,7 @@ next2.onclick =
   summary.innerHTML = `
 
     <b>${escapeHtml(
-      svc.name
+      getServiceName(svc)
     )}</b>
 
     <br>
@@ -4270,7 +4276,7 @@ const clientPhone =
                 svc.duration,
 
               servicio:
-                svc.name,
+                getServiceName(svc),
 
               nombre:
                 clientName,
@@ -4316,7 +4322,7 @@ const clientPhone =
                 svc.duration,
 
               servicio:
-                svc.name,
+                getServiceName(svc),
 
               nombre:
                 clientName,
@@ -4406,7 +4412,7 @@ const clientPhone =
         clientEmail,
 
       servicio:
-        svc.name,
+        getServiceName(svc),
 
       duracion:
         svc.duration,
