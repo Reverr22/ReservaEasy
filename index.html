@@ -326,7 +326,7 @@ button:disabled{background:#2a374a;color:#8190a5;box-shadow:none;cursor:not-allo
 <aside class="card profile">
   <div class="avatar">LOGO</div>
   <div class="business-badge" data-i18n="onlineBadge">● Reserva online</div>
-  <h2>Nombre del negocio</h2>
+  <h2 data-i18n="businessName">Nombre del negocio</h2>
   <p data-i18n="profession">Tu profesión o servicio</p>
   <p data-i18n="address">📍 Tu dirección</p>
   <div class="profile-divider"></div>
@@ -676,6 +676,8 @@ const translations = {
 
 es:{
   header:"Reserva tu cita",
+  businessName:"Nombre del negocio",
+  service1:"Servicio 1", service2:"Servicio 2", service3:"Servicio 3", service4:"Servicio 4",
   myBookings:"📋 Mis reservas",
   stepService:"Servicio",
   stepDate:"Fecha",
@@ -747,6 +749,8 @@ es:{
 
 en:{
   header:"Book your appointment",
+  businessName:"Business name",
+  service1:"Service 1", service2:"Service 2", service3:"Service 3", service4:"Service 4",
   myBookings:"📋 My bookings",
   stepService:"Service",
   stepDate:"Date",
@@ -818,6 +822,8 @@ en:{
 
 fr:{
   header:"Réserver un rendez-vous",
+  businessName:"Nom de l’entreprise",
+  service1:"Service 1", service2:"Service 2", service3:"Service 3", service4:"Service 4",
   myBookings:"📋 Mes réservations",
   stepService:"Service",
   stepDate:"Date",
@@ -889,6 +895,8 @@ fr:{
 
 de:{
   header:"Termin buchen",
+  businessName:"Name des Unternehmens",
+  service1:"Service 1", service2:"Service 2", service3:"Service 3", service4:"Service 4",
   myBookings:"📋 Meine Termine",
   stepService:"Service",
   stepDate:"Datum",
@@ -960,6 +968,8 @@ de:{
 
 it:{
   header:"Prenota il tuo appuntamento",
+  businessName:"Nome dell’attività",
+  service1:"Servizio 1", service2:"Servizio 2", service3:"Servizio 3", service4:"Servizio 4",
   myBookings:"📋 Le mie prenotazioni",
   stepService:"Servizio",
   stepDate:"Data",
@@ -1031,6 +1041,8 @@ it:{
 
 pt:{
   header:"Marcar uma consulta",
+  businessName:"Nome do negócio",
+  service1:"Serviço 1", service2:"Serviço 2", service3:"Serviço 3", service4:"Serviço 4",
   myBookings:"📋 As minhas reservas",
   stepService:"Serviço",
   stepDate:"Data",
@@ -1102,6 +1114,8 @@ pt:{
 
 nl:{
   header:"Afspraak maken",
+  businessName:"Naam van het bedrijf",
+  service1:"Dienst 1", service2:"Dienst 2", service3:"Dienst 3", service4:"Dienst 4",
   myBookings:"📋 Mijn afspraken",
   stepService:"Service",
   stepDate:"Datum",
@@ -1173,6 +1187,8 @@ nl:{
 
 ca:{
   header:"Reserva la teua cita",
+  businessName:"Nom del negoci",
+  service1:"Servei 1", service2:"Servei 2", service3:"Servei 3", service4:"Servei 4",
   myBookings:"📋 Les meues reserves",
   stepService:"Servici",
   stepDate:"Data",
@@ -1244,6 +1260,8 @@ ca:{
 
 ru:{
   header:"Забронировать визит",
+  businessName:"Название бизнеса",
+  service1:"Услуга 1", service2:"Услуга 2", service3:"Услуга 3", service4:"Услуга 4",
   myBookings:"📋 Мои записи",
   stepService:"Услуга",
   stepDate:"Дата",
@@ -1315,6 +1333,8 @@ ru:{
 
 zh:{
   header:"预约",
+  businessName:"商家名称",
+  service1:"服务 1", service2:"服务 2", service3:"服务 3", service4:"服务 4",
   myBookings:"📋 我的预约",
   stepService:"服务",
   stepDate:"日期",
@@ -1386,6 +1406,8 @@ zh:{
 
 ja:{
   header:"予約する",
+  businessName:"店舗名",
+  service1:"サービス 1", service2:"サービス 2", service3:"サービス 3", service4:"サービス 4",
   myBookings:"📋 予約一覧",
   stepService:"サービス",
   stepDate:"日付",
@@ -1457,6 +1479,8 @@ ja:{
 
 ar:{
   header:"احجز موعدك",
+  businessName:"اسم النشاط التجاري",
+  service1:"الخدمة 1", service2:"الخدمة 2", service3:"الخدمة 3", service4:"الخدمة 4",
   myBookings:"📋 حجوزاتي",
   stepService:"الخدمة",
   stepDate:"التاريخ",
@@ -1602,6 +1626,8 @@ function translatePage(){
 
   renderWeekdays();
 
+  renderServices();
+
   renderCalendar();
 
   if(selectedDate){
@@ -1672,25 +1698,25 @@ function renderWeekdays(){
 const services = [
 
   {
-    name:"Servicio 1",
+    nameKey:"service1",
     duration:30,
     price:0
   },
 
   {
-    name:"Servicio 2",
+    nameKey:"service2",
     duration:45,
     price:0
   },
 
   {
-    name:"Servicio 3",
+    nameKey:"service3",
     duration:60,
     price:0
   },
 
   {
-    name:"Servicio 4",
+    nameKey:"service4",
     duration:30,
     price:0
   }
@@ -2367,7 +2393,7 @@ function renderServices(){
         <div class="service-icon">✦</div>
         <div>
           <div class="meta">◷ ${service.duration} ${t("minutes")}</div>
-          <h3>${escapeHtml(service.name)}</h3>
+          <h3>${escapeHtml(service.nameKey ? t(service.nameKey) : service.name)}</h3>
         </div>
       </div>
 
