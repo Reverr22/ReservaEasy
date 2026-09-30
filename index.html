@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Reserva tu cita · Reserva online</title>
-<meta name="description" content="Reserva tu cita online de forma rápida, sencilla y segura.">
+<title data-i18n="pageTitle">Reserva tu cita · Reserva online</title>
+<meta name="description" data-i18n-content="pageDescription" content="Reserva tu cita online de forma rápida, sencilla y segura.">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
 
@@ -324,15 +324,15 @@ button:disabled{background:#2a374a;color:#8190a5;box-shadow:none;cursor:not-allo
 
 <aside class="card profile">
   <div class="avatar">LOGO</div>
-  <div class="business-badge">● Reserva online</div>
+  <div class="business-badge" data-i18n="onlineBadge">● Reserva online</div>
   <h2>Nombre del negocio</h2>
-  <p>Tu profesión o servicio</p>
-  <p>📍 Tu dirección</p>
+  <p data-i18n="profession">Tu profesión o servicio</p>
+  <p data-i18n="address">📍 Tu dirección</p>
   <div class="profile-divider"></div>
   <div class="trust">
-    <div><span>✓</span> Reserva en pocos pasos</div>
-    <div><span>◷</span> Disponibilidad actualizada</div>
-    <div><span>⌁</span> Confirmación inmediata</div>
+    <div><span>✓</span> <span data-i18n="trustEasy">Reserva en pocos pasos</span></div>
+    <div><span>◷</span> <span data-i18n="trustAvailability">Disponibilidad actualizada</span></div>
+    <div><span>⌁</span> <span data-i18n="trustConfirmation">Confirmación inmediata</span></div>
   </div>
 </aside>
 
@@ -415,9 +415,7 @@ button:disabled{background:#2a374a;color:#8190a5;box-shadow:none;cursor:not-allo
           ‹
         </button>
 
-        <h2 id="monthTitle">
-          Cargando...
-        </h2>
+        <h2 id="monthTitle" data-i18n="loading">Cargando...</h2>
 
         <button
           class="month-button"
@@ -553,7 +551,7 @@ button:disabled{background:#2a374a;color:#8190a5;box-shadow:none;cursor:not-allo
         inputmode="tel">
     </div>
 
-    <div class="phone-hint">Selecciona el país y escribe tu número.</div>
+    <div class="phone-hint" data-i18n="phoneHint">Selecciona el país y escribe tu número.</div>
 
     <div
       class="error-message"
@@ -626,15 +624,14 @@ button:disabled{background:#2a374a;color:#8190a5;box-shadow:none;cursor:not-allo
   <h1 data-i18n="confirmed">Reserva confirmada</h1>
   <p class="sub" id="oktext"></p>
   <div class="success-details">
-    <div class="success-detail"><span class="label">Servicio</span><span class="value" id="okService">—</span></div>
-    <div class="success-detail"><span class="label">Fecha</span><span class="value" id="okDate">—</span></div>
-    <div class="success-detail"><span class="label">Hora</span><span class="value" id="okTime">—</span></div>
+    <div class="success-detail"><span class="label" data-i18n="serviceLabel">Servicio</span><span class="value" id="okService">—</span></div>
+    <div class="success-detail"><span class="label" data-i18n="dateLabel">Fecha</span><span class="value" id="okDate">—</span></div>
+    <div class="success-detail"><span class="label" data-i18n="timeLabel">Hora</span><span class="value" id="okTime">—</span></div>
   </div>
   <div class="success-message">
-    Tu cita ha quedado reservada correctamente.<br>
-    Te esperamos. ¡Gracias por confiar en nosotros! 😊
+    <span data-i18n="successMessage">Tu cita ha quedado reservada correctamente.<br>Te esperamos. ¡Gracias por confiar en nosotros! 😊</span>
   </div>
-  <button type="button" id="newBookingAfterSuccess" class="success-button">← Volver al inicio</button>
+  <button type="button" id="newBookingAfterSuccess" class="success-button" data-i18n="backHome">← Volver al inicio</button>
 </section>
 
 
@@ -727,7 +724,24 @@ es:{
   cancelError:"No se ha podido cancelar la reserva.",
   rescheduleError:"No se ha podido reagendar la reserva.",
   cancelled:"Cancelada",
-  confirmedStatus:"Confirmada"
+  confirmedStatus:"Confirmada",
+  pageTitle:"Reserva tu cita · Reserva online",
+  pageDescription:"Reserva tu cita online de forma rápida, sencilla y segura.",
+  onlineBadge:"● Reserva online",
+  profession:"Tu profesión o servicio",
+  address:"📍 Tu dirección",
+  trustEasy:"Reserva en pocos pasos",
+  trustAvailability:"Disponibilidad actualizada",
+  trustConfirmation:"Confirmación inmediata",
+  loading:"Cargando...",
+  phoneHint:"Selecciona el país y escribe tu número.",
+  serviceLabel:"Servicio",
+  dateLabel:"Fecha",
+  timeLabel:"Hora",
+  successMessage:"Tu cita ha quedado reservada correctamente. Te esperamos. ¡Gracias por confiar en nosotros! 😊",
+  backHome:"← Volver al inicio",
+  booking:"Reserva",
+  cancelConfirm:"¿Seguro que quieres cancelar esta reserva?"
 },
 
 en:{
@@ -781,7 +795,24 @@ en:{
   cancelError:"The booking could not be cancelled.",
   rescheduleError:"The booking could not be rescheduled.",
   cancelled:"Cancelled",
-  confirmedStatus:"Confirmed"
+  confirmedStatus:"Confirmed",
+  pageTitle:"Book your appointment · Online booking",
+  pageDescription:"Book your appointment online quickly, easily and securely.",
+  onlineBadge:"● Online booking",
+  profession:"Your profession or service",
+  address:"📍 Your address",
+  trustEasy:"Book in just a few steps",
+  trustAvailability:"Availability updated",
+  trustConfirmation:"Instant confirmation",
+  loading:"Loading...",
+  phoneHint:"Select the country and enter your number.",
+  serviceLabel:"Service",
+  dateLabel:"Date",
+  timeLabel:"Time",
+  successMessage:"Your appointment has been booked successfully. We look forward to seeing you. Thank you for choosing us! 😊",
+  backHome:"← Back to home",
+  booking:"Booking",
+  cancelConfirm:"Are you sure you want to cancel this booking?"
 },
 
 fr:{
@@ -835,7 +866,24 @@ fr:{
   cancelError:"Impossible d'annuler la réservation.",
   rescheduleError:"Impossible de modifier la réservation.",
   cancelled:"Annulée",
-  confirmedStatus:"Confirmée"
+  confirmedStatus:"Confirmée",
+  pageTitle:"Réserver un rendez-vous · Réservation en ligne",
+  pageDescription:"Réservez votre rendez-vous en ligne rapidement, simplement et en toute sécurité.",
+  onlineBadge:"● Réservation en ligne",
+  profession:"Votre profession ou service",
+  address:"📍 Votre adresse",
+  trustEasy:"Réservez en quelques étapes",
+  trustAvailability:"Disponibilités mises à jour",
+  trustConfirmation:"Confirmation immédiate",
+  loading:"Chargement...",
+  phoneHint:"Sélectionnez le pays et saisissez votre numéro.",
+  serviceLabel:"Service",
+  dateLabel:"Date",
+  timeLabel:"Heure",
+  successMessage:"Votre rendez-vous a été réservé avec succès. Au plaisir de vous accueillir. Merci de votre confiance ! 😊",
+  backHome:"← Retour à l'accueil",
+  booking:"Réservation",
+  cancelConfirm:"Êtes-vous sûr de vouloir annuler cette réservation ?"
 },
 
 de:{
@@ -889,7 +937,24 @@ de:{
   cancelError:"Der Termin konnte nicht storniert werden.",
   rescheduleError:"Der Termin konnte nicht geändert werden.",
   cancelled:"Storniert",
-  confirmedStatus:"Bestätigt"
+  confirmedStatus:"Bestätigt",
+  pageTitle:"Termin buchen · Online-Buchung",
+  pageDescription:"Buchen Sie Ihren Termin schnell, einfach und sicher online.",
+  onlineBadge:"● Online-Buchung",
+  profession:"Ihr Beruf oder Service",
+  address:"📍 Ihre Adresse",
+  trustEasy:"In wenigen Schritten buchen",
+  trustAvailability:"Aktuelle Verfügbarkeit",
+  trustConfirmation:"Sofortige Bestätigung",
+  loading:"Laden...",
+  phoneHint:"Land auswählen und Telefonnummer eingeben.",
+  serviceLabel:"Service",
+  dateLabel:"Datum",
+  timeLabel:"Uhrzeit",
+  successMessage:"Ihr Termin wurde erfolgreich gebucht. Wir freuen uns auf Sie. Vielen Dank für Ihr Vertrauen! 😊",
+  backHome:"← Zur Startseite",
+  booking:"Termin",
+  cancelConfirm:"Möchten Sie diesen Termin wirklich stornieren?"
 },
 
 it:{
@@ -943,7 +1008,24 @@ it:{
   cancelError:"Impossibile cancellare la prenotazione.",
   rescheduleError:"Impossibile modificare la prenotazione.",
   cancelled:"Cancellata",
-  confirmedStatus:"Confermata"
+  confirmedStatus:"Confermata",
+  pageTitle:"Prenota il tuo appuntamento · Prenotazione online",
+  pageDescription:"Prenota il tuo appuntamento online in modo rapido, semplice e sicuro.",
+  onlineBadge:"● Prenotazione online",
+  profession:"La tua professione o servizio",
+  address:"📍 Il tuo indirizzo",
+  trustEasy:"Prenota in pochi passaggi",
+  trustAvailability:"Disponibilità aggiornata",
+  trustConfirmation:"Conferma immediata",
+  loading:"Caricamento...",
+  phoneHint:"Seleziona il paese e inserisci il numero.",
+  serviceLabel:"Servizio",
+  dateLabel:"Data",
+  timeLabel:"Ora",
+  successMessage:"Il tuo appuntamento è stato prenotato correttamente. Ti aspettiamo. Grazie per la fiducia! 😊",
+  backHome:"← Torna all'inizio",
+  booking:"Prenotazione",
+  cancelConfirm:"Sei sicuro di voler cancellare questa prenotazione?"
 },
 
 pt:{
@@ -997,7 +1079,24 @@ pt:{
   cancelError:"Não foi possível cancelar a reserva.",
   rescheduleError:"Não foi possível alterar a reserva.",
   cancelled:"Cancelada",
-  confirmedStatus:"Confirmada"
+  confirmedStatus:"Confirmada",
+  pageTitle:"Marcar uma consulta · Reserva online",
+  pageDescription:"Marque a sua consulta online de forma rápida, simples e segura.",
+  onlineBadge:"● Reserva online",
+  profession:"A sua profissão ou serviço",
+  address:"📍 A sua morada",
+  trustEasy:"Reserve em poucos passos",
+  trustAvailability:"Disponibilidade atualizada",
+  trustConfirmation:"Confirmação imediata",
+  loading:"A carregar...",
+  phoneHint:"Selecione o país e introduza o seu número.",
+  serviceLabel:"Serviço",
+  dateLabel:"Data",
+  timeLabel:"Hora",
+  successMessage:"A sua consulta foi marcada com sucesso. Esperamos por si. Obrigado pela confiança! 😊",
+  backHome:"← Voltar ao início",
+  booking:"Reserva",
+  cancelConfirm:"Tem a certeza de que pretende cancelar esta reserva?"
 },
 
 nl:{
@@ -1051,7 +1150,24 @@ nl:{
   cancelError:"De afspraak kon niet worden geannuleerd.",
   rescheduleError:"De afspraak kon niet worden gewijzigd.",
   cancelled:"Geannuleerd",
-  confirmedStatus:"Bevestigd"
+  confirmedStatus:"Bevestigd",
+  pageTitle:"Afspraak maken · Online afspraak",
+  pageDescription:"Maak snel, eenvoudig en veilig online een afspraak.",
+  onlineBadge:"● Online afspraak",
+  profession:"Uw beroep of service",
+  address:"📍 Uw adres",
+  trustEasy:"Boek in enkele stappen",
+  trustAvailability:"Beschikbaarheid bijgewerkt",
+  trustConfirmation:"Directe bevestiging",
+  loading:"Laden...",
+  phoneHint:"Selecteer het land en voer uw nummer in.",
+  serviceLabel:"Service",
+  dateLabel:"Datum",
+  timeLabel:"Tijd",
+  successMessage:"Uw afspraak is succesvol geboekt. We zien u graag. Bedankt voor uw vertrouwen! 😊",
+  backHome:"← Terug naar het begin",
+  booking:"Afspraak",
+  cancelConfirm:"Weet u zeker dat u deze afspraak wilt annuleren?"
 },
 
 ca:{
@@ -1105,7 +1221,24 @@ ca:{
   cancelError:"No s'ha pogut cancel·lar la reserva.",
   rescheduleError:"No s'ha pogut reagendar la reserva.",
   cancelled:"Cancel·lada",
-  confirmedStatus:"Confirmada"
+  confirmedStatus:"Confirmada",
+  pageTitle:"Reserva la teua cita · Reserva en línia",
+  pageDescription:"Reserva la teua cita en línia de manera ràpida, senzilla i segura.",
+  onlineBadge:"● Reserva en línia",
+  profession:"La teua professió o servici",
+  address:"📍 La teua adreça",
+  trustEasy:"Reserva en pocs passos",
+  trustAvailability:"Disponibilitat actualitzada",
+  trustConfirmation:"Confirmació immediata",
+  loading:"Carregant...",
+  phoneHint:"Selecciona el país i escriu el teu número.",
+  serviceLabel:"Servici",
+  dateLabel:"Data",
+  timeLabel:"Hora",
+  successMessage:"La teua cita ha quedat reservada correctament. T'esperem. Gràcies per confiar en nosaltres! 😊",
+  backHome:"← Tornar a l'inici",
+  booking:"Reserva",
+  cancelConfirm:"Segur que vols cancel·lar esta reserva?"
 },
 
 ru:{
@@ -1159,7 +1292,24 @@ ru:{
   cancelError:"Не удалось отменить бронирование.",
   rescheduleError:"Не удалось изменить бронирование.",
   cancelled:"Отменено",
-  confirmedStatus:"Подтверждено"
+  confirmedStatus:"Подтверждено",
+  pageTitle:"Забронировать визит · Онлайн-запись",
+  pageDescription:"Забронируйте визит онлайн быстро, удобно и безопасно.",
+  onlineBadge:"● Онлайн-запись",
+  profession:"Ваша профессия или услуга",
+  address:"📍 Ваш адрес",
+  trustEasy:"Запись за несколько шагов",
+  trustAvailability:"Актуальная доступность",
+  trustConfirmation:"Мгновенное подтверждение",
+  loading:"Загрузка...",
+  phoneHint:"Выберите страну и введите номер.",
+  serviceLabel:"Услуга",
+  dateLabel:"Дата",
+  timeLabel:"Время",
+  successMessage:"Ваш визит успешно забронирован. Будем ждать вас. Спасибо за доверие! 😊",
+  backHome:"← Вернуться на главную",
+  booking:"Запись",
+  cancelConfirm:"Вы уверены, что хотите отменить эту запись?"
 },
 
 zh:{
@@ -1196,7 +1346,7 @@ zh:{
   minutes:"分钟",
   available:"个可用时间",
   oneAvailable:"个可用时间",
-  phoneInvalid:"请输入有效的9位西班牙电话号码。",
+  phoneInvalid:"请输入有效的电话号码。",
   emailInvalid:"请输入有效的电子邮箱。",
   required:"请输入姓名和电话。",
   bookingError:"无法确认预约。",
@@ -1213,7 +1363,24 @@ zh:{
   cancelError:"无法取消预约。",
   rescheduleError:"无法修改预约。",
   cancelled:"已取消",
-  confirmedStatus:"已确认"
+  confirmedStatus:"已确认",
+  pageTitle:"预约 · 在线预约",
+  pageDescription:"快速、简单、安全地在线预约。",
+  onlineBadge:"● 在线预约",
+  profession:"您的职业或服务",
+  address:"📍 您的地址",
+  trustEasy:"几步即可完成预约",
+  trustAvailability:"实时更新可用时间",
+  trustConfirmation:"即时确认",
+  loading:"加载中...",
+  phoneHint:"选择国家并输入电话号码。",
+  serviceLabel:"服务",
+  dateLabel:"日期",
+  timeLabel:"时间",
+  successMessage:"您的预约已成功完成。期待您的到来。感谢您的信任！😊",
+  backHome:"← 返回首页",
+  booking:"预约",
+  cancelConfirm:"确定要取消此预约吗？"
 },
 
 ja:{
@@ -1250,7 +1417,7 @@ ja:{
   minutes:"分",
   available:"空き時間",
   oneAvailable:"空き時間",
-  phoneInvalid:"有効な9桁のスペインの電話番号を入力してください。",
+  phoneInvalid:"有効な電話番号を入力してください。",
   emailInvalid:"有効なメールアドレスを入力してください。",
   required:"名前と電話番号を入力してください。",
   bookingError:"予約を確定できませんでした。",
@@ -1267,7 +1434,24 @@ ja:{
   cancelError:"予約をキャンセルできませんでした。",
   rescheduleError:"予約を変更できませんでした。",
   cancelled:"キャンセル済み",
-  confirmedStatus:"確認済み"
+  confirmedStatus:"確認済み",
+  pageTitle:"予約 · オンライン予約",
+  pageDescription:"すばやく、簡単、安全にオンラインで予約できます。",
+  onlineBadge:"● オンライン予約",
+  profession:"職業またはサービス",
+  address:"📍 住所",
+  trustEasy:"数ステップで予約完了",
+  trustAvailability:"空き状況を更新",
+  trustConfirmation:"即時確認",
+  loading:"読み込み中...",
+  phoneHint:"国を選択して電話番号を入力してください。",
+  serviceLabel:"サービス",
+  dateLabel:"日付",
+  timeLabel:"時間",
+  successMessage:"予約が正常に完了しました。ご来店をお待ちしております。ありがとうございます！😊",
+  backHome:"← ホームに戻る",
+  booking:"予約",
+  cancelConfirm:"この予約をキャンセルしてもよろしいですか？"
 },
 
 ar:{
@@ -1304,7 +1488,7 @@ ar:{
   minutes:"دقائق",
   available:"مواعيد متاحة",
   oneAvailable:"موعد متاح",
-  phoneInvalid:"أدخل رقم هاتف إسباني صالحاً مكوناً من 9 أرقام.",
+  phoneInvalid:"أدخل رقم هاتف صالحاً.",
   emailInvalid:"أدخل بريداً إلكترونياً صالحاً.",
   required:"أدخل الاسم ورقم الهاتف.",
   bookingError:"تعذر تأكيد الحجز.",
@@ -1321,7 +1505,24 @@ ar:{
   cancelError:"تعذر إلغاء الحجز.",
   rescheduleError:"تعذر تغيير الحجز.",
   cancelled:"ملغى",
-  confirmedStatus:"مؤكد"
+  confirmedStatus:"مؤكد",
+  pageTitle:"احجز موعدك · حجز عبر الإنترنت",
+  pageDescription:"احجز موعدك عبر الإنترنت بسرعة وسهولة وأمان.",
+  onlineBadge:"● حجز عبر الإنترنت",
+  profession:"مهنتك أو خدمتك",
+  address:"📍 عنوانك",
+  trustEasy:"احجز في خطوات بسيطة",
+  trustAvailability:"تحديث التوفر",
+  trustConfirmation:"تأكيد فوري",
+  loading:"جارٍ التحميل...",
+  phoneHint:"اختر الدولة وأدخل رقم هاتفك.",
+  serviceLabel:"الخدمة",
+  dateLabel:"التاريخ",
+  timeLabel:"الوقت",
+  successMessage:"تم حجز موعدك بنجاح. نتطلع لرؤيتك. شكرًا لثقتك! 😊",
+  backHome:"← العودة إلى البداية",
+  booking:"الحجز",
+  cancelConfirm:"هل أنت متأكد من رغبتك في إلغاء هذا الحجز؟"
 }
 
 };
@@ -1359,6 +1560,15 @@ function translatePage(){
   document.documentElement.lang =
     currentLanguage;
 
+  document.title = t("pageTitle");
+
+  const descriptionMeta =
+    document.querySelector('meta[name="description"]');
+
+  if(descriptionMeta){
+    descriptionMeta.setAttribute("content", t("pageDescription"));
+  }
+
   if(currentLanguage === "ar"){
     document.body.dir = "rtl";
   }else{
@@ -1372,6 +1582,12 @@ function translatePage(){
       element.textContent =
         t(element.dataset.i18n);
 
+    });
+
+  document
+    .querySelectorAll("[data-i18n-content]")
+    .forEach(element => {
+      element.setAttribute("content", t(element.dataset.i18nContent));
     });
 
   document
@@ -1738,7 +1954,7 @@ function renderBookings(){
 
         <h3>
           ${escapeHtml(
-            booking.servicio || "Reserva"
+            booking.servicio || t("booking")
           )}
         </h3>
 
@@ -1886,7 +2102,7 @@ async function cancelSavedBooking(
 
   const confirmed =
     confirm(
-      "¿Seguro que quieres cancelar esta reserva?"
+      t("cancelConfirm")
     );
 
   if(!confirmed){
@@ -4354,7 +4570,7 @@ function showManagement(
     <h2>
       ${escapeHtml(
         booking.servicio ||
-        "Reserva"
+        t("booking")
       )}
     </h2>
 
