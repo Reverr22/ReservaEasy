@@ -1625,6 +1625,22 @@ function updateDynamicLocalizedContent(){
         year:"numeric"
       });
 
+    const currentHours =
+      availability[selectedDate] || [];
+
+    dateDescription.textContent =
+      currentHours.length === 1
+        ? `1 ${t("oneAvailable")}`
+        : `${currentHours.length} ${t("available")}`;
+
+  }else{
+
+    selectedDateEl.textContent =
+      t("selectDay");
+
+    dateDescription.textContent =
+      t("hoursHere");
+
   }
 
   // Resumen del paso 3
@@ -1748,10 +1764,31 @@ function translatePage(){
 
   renderCalendar();
 
+  /*
+    Al cambiar de idioma, repintamos también el panel derecho del
+    calendario. Así no queda ningún texto del idioma anterior.
+  */
   if(selectedDate){
-    renderHours(
-      availability[selectedDate] || []
-    );
+
+    const selectedHours =
+      availability[selectedDate] || [];
+
+    renderHours(selectedHours);
+
+  }else{
+
+    selectedDateEl.textContent =
+      t("selectDay");
+
+    dateDescription.textContent =
+      t("hoursHere");
+
+    hoursContainer.innerHTML = `
+      <div class="no-hours">
+        ${t("selectDayCalendar")}
+      </div>
+    `;
+
   }
 
   renderBookings();
@@ -3077,10 +3114,7 @@ function renderCalendar(){
     currentMonth.getMonth();
 
 
-  const locale =
-    currentLanguage === "es"
-      ? "es-ES"
-      : currentLanguage;
+  const locale = getCurrentLocale();
 
 
   monthTitle.textContent =
