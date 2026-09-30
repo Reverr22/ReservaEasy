@@ -1580,6 +1580,124 @@ function t(key){
 }
 
 
+function getCurrentLocale(){
+
+  const locales = {
+    es:"es-ES",
+    en:"en-GB",
+    fr:"fr-FR",
+    de:"de-DE",
+    it:"it-IT",
+    pt:"pt-PT",
+    nl:"nl-NL",
+    ca:"ca-ES",
+    ru:"ru-RU",
+    zh:"zh-CN",
+    ja:"ja-JP",
+    ar:"ar-SA"
+  };
+
+  return locales[currentLanguage] || "es-ES";
+
+}
+
+function formatLocalizedDate(date, options){
+  return date.toLocaleDateString(
+    getCurrentLocale(),
+    options
+  );
+}
+
+function updateDynamicLocalizedContent(){
+
+  // Fecha seleccionada del paso 2
+  if(selectedDate){
+
+    const date = new Date(
+      selectedDate + "T12:00:00"
+    );
+
+    selectedDateEl.textContent =
+      formatLocalizedDate(date, {
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      });
+
+  }
+
+  // Resumen del paso 3
+  if(svc && selectedDate && selectedTime){
+
+    const date = new Date(
+      selectedDate + "T12:00:00"
+    );
+
+    const formatted =
+      formatLocalizedDate(date, {
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      });
+
+    summary.innerHTML = `
+      <b>${escapeHtml(
+        svc.nameKey ? t(svc.nameKey) : svc.name
+      )}</b>
+      <br>
+      📅 ${escapeHtml(formatted)}
+      <br>
+      🕐 ${escapeHtml(selectedTime)}
+      <br>
+      ⏱️ ${svc.duration} ${t("minutes")}
+      <br><br>
+      <b>${t("price")}:</b>
+      ${svc.price ? "€"+svc.price : t("consult")}
+    `;
+
+  }
+
+  // Pantalla final de reserva confirmada
+  const ok = document.getElementById("ok");
+
+  if(
+    ok &&
+    !ok.classList.contains("hidden") &&
+    svc &&
+    selectedDate &&
+    selectedTime
+  ){
+
+    const date = new Date(
+      selectedDate + "T12:00:00"
+    );
+
+    const formatted =
+      formatLocalizedDate(date, {
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      });
+
+    document.getElementById("oktext").textContent =
+      `${formatted} · ${selectedTime}`;
+
+    document.getElementById("okService").textContent =
+      svc.nameKey ? t(svc.nameKey) : svc.name;
+
+    document.getElementById("okDate").textContent =
+      formatted;
+
+    document.getElementById("okTime").textContent =
+      selectedTime;
+
+  }
+
+}
+
 function translatePage(){
 
   document.documentElement.lang =
@@ -1637,6 +1755,10 @@ function translatePage(){
   }
 
   renderBookings();
+
+  // Actualiza también los textos dinámicos que no tienen data-i18n
+  // (fecha seleccionada, resumen y pantalla final).
+  updateDynamicLocalizedContent();
 
 }
 
@@ -2853,9 +2975,7 @@ function renderLoadingCalendar(){
 
   monthTitle.textContent =
     currentMonth.toLocaleDateString(
-      currentLanguage === "es"
-        ? "es-ES"
-        : currentLanguage,
+      getCurrentLocale(),
       {
         month:"long",
         year:"numeric"
@@ -3243,9 +3363,7 @@ function selectDate(
 
   selectedDateEl.textContent =
     date.toLocaleDateString(
-      currentLanguage === "es"
-        ? "es-ES"
-        : currentLanguage,
+      getCurrentLocale(),
       {
         weekday:"long",
         day:"numeric",
@@ -3680,9 +3798,7 @@ next2.onclick =
 
   const formatted =
     date.toLocaleDateString(
-      currentLanguage === "es"
-        ? "es-ES"
-        : currentLanguage,
+      getCurrentLocale(),
       {
         weekday:"long",
         day:"numeric",
@@ -4368,7 +4484,7 @@ const clientPhone =
     document.getElementById("oktext").textContent =
       `${formatted} · ${selectedTime}`;
 
-    document.getElementById("okService").textContent = svc.name;
+    document.getElementById("okService").textContent = svc.nameKey ? t(svc.nameKey) : svc.name;
     document.getElementById("okDate").textContent = formatted;
     document.getElementById("okTime").textContent = selectedTime;
 
