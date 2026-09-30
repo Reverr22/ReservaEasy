@@ -116,7 +116,8 @@ header{
 .profile .profile-divider{height:1px;background:var(--line);margin:20px 0}
 .profile .trust{display:grid;gap:10px;text-align:left;color:#aebaca;font-size:12px}
 .profile .trust div{display:flex;gap:9px;align-items:center}
-.profile .trust span{width:25px;height:25px;border-radius:8px;background:#172943;display:grid;place-items:center;color:#6f92ff}
+.profile .trust > div > span:first-child{width:25px;height:25px;flex:0 0 25px;border-radius:8px;background:#172943;display:grid;place-items:center;color:#6f92ff}
+.profile .trust > div > span:last-child{width:auto;flex:1;min-width:0;line-height:1.35;overflow-wrap:anywhere}
 .main{padding:34px 36px 30px;min-height:720px}
 
 /* STEPS */
