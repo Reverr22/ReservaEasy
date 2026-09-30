@@ -2017,9 +2017,25 @@ function rescheduleSavedBooking(
   nameInput.value =
     booking.nombre || "";
 
-  phoneIti.setNumber(
-  booking.telefono || ""
-);
+  const fullPhone = booking.telefono || "";
+
+phoneIti.setNumber(fullPhone);
+
+const dialCode =
+  phoneIti.getSelectedCountryData().dialCode;
+
+let nationalPhone =
+  fullPhone.replace(/\D/g, "");
+
+if (
+  dialCode &&
+  nationalPhone.startsWith(dialCode)
+) {
+  nationalPhone =
+    nationalPhone.slice(dialCode.length);
+}
+
+phoneInput.value = nationalPhone;
 
   emailInput.value =
     booking.email || "";
