@@ -1900,6 +1900,9 @@ new Date(
 );
 
 const availability = {};
+const availabilityLoaded = {};
+const availabilityLoading = {};
+let availabilityLoadToken = 0;
 
 
 /* =====================================================
@@ -2928,7 +2931,7 @@ async function getAvailability(
 
 
 /* =====================================================
-   CARGAR MES
+   CARGAR MES — CARGA RÁPIDA
 ===================================================== */
 
 async function loadMonthAvailability(){
@@ -2937,15 +2940,31 @@ async function loadMonthAvailability(){
     return;
   }
 
+  const loadToken =
+    ++availabilityLoadToken;
+
+
   Object.keys(
     availability
   ).forEach(key => {
-
     delete availability[key];
+  });
 
+  Object.keys(
+    availabilityLoaded
+  ).forEach(key => {
+    delete availabilityLoaded[key];
+  });
+
+  Object.keys(
+    availabilityLoading
+  ).forEach(key => {
+    delete availabilityLoading[key];
   });
 
 
+  /* Pintamos el calendario inmediatamente.
+     No esperamos a N8N para mostrarlo. */
   renderLoadingCalendar();
 
 
@@ -2968,7 +2987,7 @@ async function loadMonthAvailability(){
   const maxDate =
     maxBookingDate();
 
-  const requests = [];
+  const dates = [];
 
 
   for(
@@ -2998,46 +3017,190 @@ async function loadMonthAvailability(){
       availability[fecha] =
         [];
 
+      availabilityLoaded[fecha] =
+        true;
+
       continue;
 
     }
 
-
-    requests.push(
-
-      getAvailability(fecha)
-        .then(hours => {
-
-          availability[fecha] =
-            Array.isArray(hours)
-              ? hours
-              : [];
-
-        })
-
-    );
+    dates.push({
+      fecha,
+      time:date.getTime()
+    });
 
   }
 
 
-  await Promise.all(
-    requests
+  /* Primero cargamos los días más cercanos a hoy.
+     El resto sigue cargándose en segundo plano. */
+  dates.sort(
+    (a,b) =>
+      Math.abs(a.time-today.getTime()) -
+      Math.abs(b.time-today.getTime())
   );
 
 
-  renderCalendar();
+  const workerCount =
+    Math.min(5, dates.length);
 
 
-  if(selectedDate){
+  let nextIndex = 0;
 
-    const hours =
-      availability[
-        selectedDate
-      ] || [];
 
-    renderHours(hours);
+  async function worker(){
+
+    while(true){
+
+      const index =
+        nextIndex++;
+
+      if(index >= dates.length){
+        return;
+      }
+
+
+      const fecha =
+        dates[index].fecha;
+
+
+      availabilityLoading[fecha] =
+        true;
+
+
+      try{
+
+        const hours =
+          await getAvailability(fecha);
+
+
+        if(loadToken !== availabilityLoadToken){
+          return;
+        }
+
+
+        availability[fecha] =
+          Array.isArray(hours)
+            ? hours
+            : [];
+
+      }
+      catch(error){
+
+        console.error(
+          "Error cargando",
+          fecha,
+          error
+        );
+
+        availability[fecha] =
+          [];
+
+      }
+      finally{
+
+        availabilityLoading[fecha] =
+          false;
+
+        availabilityLoaded[fecha] =
+          true;
+
+
+        if(loadToken === availabilityLoadToken){
+
+          renderCalendar();
+
+
+          if(
+            selectedDate &&
+            selectedDate === fecha
+          ){
+
+            renderHours(
+              availability[fecha] || []
+            );
+
+          }
+
+        }
+
+      }
+
+    }
 
   }
+
+
+  /* No esperamos a que termine.
+     La página queda usable mientras N8N responde. */
+  await Promise.all(
+    Array.from(
+      {length:workerCount},
+      () => worker()
+    )
+  );
+
+}
+
+
+/* =====================================================
+   CARGAR UN DÍA BAJO DEMANDA
+===================================================== */
+
+async function loadDateAvailability(
+  fecha
+){
+
+  if(
+    availabilityLoaded[fecha] ||
+    availabilityLoading[fecha]
+  ){
+
+    return availability[fecha] || [];
+
+  }
+
+
+  availabilityLoading[fecha] =
+    true;
+
+
+  try{
+
+    const hours =
+      await getAvailability(fecha);
+
+
+    availability[fecha] =
+      Array.isArray(hours)
+        ? hours
+        : [];
+
+  }
+  catch(error){
+
+    console.error(
+      "Error cargando día",
+      fecha,
+      error
+    );
+
+    availability[fecha] =
+      [];
+
+  }
+  finally{
+
+    availabilityLoading[fecha] =
+      false;
+
+    availabilityLoaded[fecha] =
+      true;
+
+  }
+
+
+  return availability[fecha] || [];
 
 }
 
@@ -3400,39 +3563,18 @@ function renderCalendar(){
    SELECCIONAR FECHA
 ===================================================== */
 
-function selectDate(
+async function selectDate(
   fecha
 ){
-
-  const hours =
-    filterPastTimes(
-      fecha,
-      availability[fecha] || []
-    );
-
-
-  availability[fecha] =
-    hours;
-
-
-  if(hours.length === 0){
-    return;
-  }
-
 
   selectedDate =
     fecha;
 
-
   selectedTime =
     null;
 
-
   next2.disabled =
     true;
-
-
-  renderCalendar();
 
 
   const date =
@@ -3454,11 +3596,93 @@ function selectDate(
 
 
   dateDescription.textContent =
+    t("hoursHere");
+
+
+  /* Si todavía no tenemos la disponibilidad de ese día,
+     la pedimos directamente sin esperar al resto del mes. */
+  if(
+    !availabilityLoaded[fecha]
+  ){
+
+    hoursContainer.innerHTML = `
+      <div class="loading">
+        ${t("loading")}
+      </div>
+    `;
+
+
+    renderCalendar();
+
+
+    const hours =
+      await loadDateAvailability(
+        fecha
+      );
+
+
+    if(
+      selectedDate !== fecha
+    ){
+
+      return;
+
+    }
+
+
+    if(hours.length === 0){
+
+      dateDescription.textContent =
+        t("noHours");
+
+    }
+    else{
+
+      dateDescription.textContent =
+        hours.length === 1
+          ? `1 ${t("oneAvailable")}`
+          : `${hours.length} ${t("available")}`;
+
+    }
+
+
+    renderCalendar();
+    renderHours(hours);
+
+    return;
+
+  }
+
+
+  const hours =
+    filterPastTimes(
+      fecha,
+      availability[fecha] || []
+    );
+
+
+  availability[fecha] =
+    hours;
+
+
+  if(hours.length === 0){
+
+    renderCalendar();
+
+    renderHours([]);
+
+    return;
+
+  }
+
+
+  dateDescription.textContent =
     hours.length === 1
       ? `1 ${t("oneAvailable")}`
       : `${hours.length} ${t("available")}`;
 
 
+  renderCalendar();
   renderHours(hours);
 
 }
