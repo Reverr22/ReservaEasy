@@ -65,6 +65,9 @@ header{
   font-weight:800;
   letter-spacing:-.02em;
 }
+.brand-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+.brand-name{font-size:19px;font-weight:900;line-height:1}
+.brand-tagline{font-size:10px;color:var(--muted);font-weight:700;line-height:1.1}
 .brand-mark{
   width:34px;height:34px;border-radius:11px;
   display:grid;place-items:center;
@@ -235,12 +238,55 @@ button:disabled{background:#2a374a;color:#8190a5;box-shadow:none;cursor:not-allo
 .success{text-align:center;padding:46px 24px 55px;max-width:700px;margin:0 auto}.ok-icon{width:82px;height:82px;margin:0 auto 22px;border-radius:50%;display:grid;place-items:center;background:var(--success-soft);color:var(--success);font-size:42px;font-weight:900;box-shadow:0 0 0 10px #0c2119}.success h1{font-size:34px;margin-bottom:10px}.success .sub{margin-bottom:0;color:#9aa8ba}.success-message{margin:22px auto;max-width:470px;padding:17px 20px;border:1px solid #e4eee8;background:#101d17;border-radius:15px;color:#c3d0c7;line-height:1.65;font-size:14px}.success-button{margin-top:4px;padding:13px 22px}
 .success-details{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:24px auto;max-width:620px;text-align:left}.success-detail{padding:14px;border:1px solid var(--line);border-radius:13px;background:#151f2d}.success-detail .label{display:block;color:#8fa0b5;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}.success-detail .value{font-size:13px;font-weight:800;color:#f4f7fb}
 
+/* FOOTER / APP IDENTITY */
+.site-footer{
+  max-width:1180px;
+  margin:0 auto 45px;
+  padding:28px 24px;
+  border-top:1px solid rgba(38,54,75,.9);
+  color:var(--muted);
+  text-align:center;
+}
+.site-footer .footer-brand{
+  color:var(--ink);
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:-.02em;
+  margin-bottom:7px;
+}
+.site-footer p{
+  max-width:760px;
+  margin:6px auto;
+  font-size:12px;
+  line-height:1.65;
+}
+.site-footer .footer-links{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+.site-footer a{
+  color:#7ea0ff;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+}
+.site-footer a:hover{text-decoration:underline}
+.site-footer small{
+  display:block;
+  margin-top:13px;
+  color:#66758a;
+  font-size:11px;
+}
+
 /* RESPONSIVE */
 @media(max-width:950px){
   .container{grid-template-columns:1fr;margin-top:22px}.profile{display:none}.main{padding:28px 25px}.calendar-area{grid-template-columns:1fr}.hours-panel{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:24px}
 }
 @media(max-width:620px){
-  header{height:68px;padding:0 14px}.brand{font-size:16px}.brand-mark{width:31px;height:31px}.header-right{gap:6px}.my-bookings-button,.language select{height:39px;padding:0 9px;font-size:11px}.my-bookings-button{font-size:0}.my-bookings-button::before{content:"▣";font-size:15px}.language select{max-width:88px}
+  header{height:68px;padding:0 14px}.brand{font-size:16px}.brand-name{font-size:16px}.brand-tagline{font-size:8px}.brand-mark{width:31px;height:31px}.header-right{gap:6px}.my-bookings-button,.language select{height:39px;padding:0 9px;font-size:11px}.my-bookings-button{font-size:0}.my-bookings-button::before{content:"▣";font-size:15px}.language select{max-width:88px}
   .bookings-panel{width:100%;padding:18px}.container{margin:12px auto 35px;padding:0 9px}.main{padding:22px 15px;border-radius:18px}.steps{margin-bottom:28px}.steps::before{left:13%;right:13%}.step{font-size:10px}.circle{width:31px;height:31px}
   h1{font-size:24px}.sub{font-size:13px;margin-bottom:20px}.service{padding:14px}.service .service-icon{width:40px;height:40px}.service h3{font-size:15px}.service .price{font-size:13px}
   .calendar{gap:2px}.day{min-height:55px;border-radius:9px;padding-top:8px}.day-number{font-size:12px}.slots{grid-template-columns:repeat(2,1fr)}.actions{margin-top:24px;padding-top:16px}.actions button{padding:11px 14px}
@@ -256,7 +302,10 @@ button:disabled{background:#2a374a;color:#8190a5;box-shadow:none;cursor:not-allo
 <header>
   <div class="brand">
     <span class="brand-mark">✦</span>
-    <span data-i18n="header">Reserva tu cita</span>
+    <div class="brand-copy">
+      <span class="brand-name">ReservaEasy</span>
+      <span class="brand-tagline" data-i18n="header">Reserva tu cita</span>
+    </div>
   </div>
 
   <div class="header-right">
@@ -639,6 +688,16 @@ button:disabled{background:#2a374a;color:#8190a5;box-shadow:none;cursor:not-allo
 </main>
 </div>
 
+<footer class="site-footer">
+  <div class="footer-brand">ReservaEasy</div>
+  <p>Plataforma de reservas online para negocios. Permite consultar la disponibilidad y gestionar citas de forma sencilla desde una única agenda.</p>
+  <p>Cuando el negocio conecta su calendario de Google, ReservaEasy consulta los eventos existentes para comprobar la disponibilidad y puede crear, modificar o eliminar eventos relacionados con las citas.</p>
+  <div class="footer-links">
+    <a href="https://reservaeasy.online/politicaprivacidad.html" target="_blank" rel="noopener">Política de privacidad</a>
+    <a href="https://reservaeasy.online/condiciones.html" target="_blank" rel="noopener">Condiciones del servicio</a>
+  </div>
+  <small>© 2026 ReservaEasy</small>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/intlTelInput.min.js"></script>
 
